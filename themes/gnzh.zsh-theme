@@ -32,8 +32,8 @@ local current_dir="%B%F{blue}%~%f%b"
 local git_branch='$(git_prompt_info)'
 local k8sClusterName=""
 if [ -f ~/.kube/config ] ;then
-        clusterName=$(grep current-context ~/.kube/config | awk -F'cluster/' '{print $2}')
-        k8sClusterName="[k8s: ${clusterName}]"
+        clusterName=$(grep current-context ~/.kube/config | awk -F': ' '{print $2}')
+        k8sClusterName="[k8s: %B%F{cyan}${clusterName}%f%b]"
 fi
 
 PROMPT="╭─${user_host} ${current_dir} \$(ruby_prompt_info) ${git_branch} ${k8sClusterName}
