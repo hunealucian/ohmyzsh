@@ -36,7 +36,12 @@ if [ -f ~/.kube/config ] ;then
         k8sClusterName="[k8s: %B%F{cyan}${clusterName}%f%b]"
 fi
 
-PROMPT="╭─${user_host} ${current_dir} \$(ruby_prompt_info) ${git_branch} ${k8sClusterName}
+if [ -f ~/.aws/config ] ;then
+  awsProfile=$(aws configure list | grep profile | awk '{print $2}')
+  awsProfileColored="[AWS-profile: ${awsProfile}]"
+fi
+
+PROMPT="╭─${user_host} ${current_dir} \$(ruby_prompt_info) ${git_branch} ${k8sClusterName} ${awsProfileColored}
 ╰─$PR_PROMPT "
 RPROMPT="${return_code}"
 
