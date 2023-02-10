@@ -30,18 +30,14 @@ local return_code="%(?..%F{red}%? ↵%f)"
 local user_host="${PR_USER}%F{cyan}@${PR_HOST}"
 local current_dir="%B%F{blue}%~%f%b"
 local git_branch='$(git_prompt_info)'
-local k8sClusterName=""
-if [ -f ~/.kube/config ] ;then
-        clusterName=$(grep current-context ~/.kube/config | awk -F': ' '{print $2}')
-        k8sClusterName="[k8s: %B%F{cyan}${clusterName}%f%b]"
-fi
+
 
 if [ -f ~/.aws/config ] ;then
   awsProfile=$(aws configure list | grep profile | awk '{print $2}')
   awsProfileColored="[AWS-profile: ${awsProfile}]"
 fi
 
-PROMPT="╭─${user_host} ${current_dir} \$(ruby_prompt_info) ${git_branch} ${k8sClusterName} ${awsProfileColored}
+PROMPT="╭─${user_host} ${current_dir} ${git_branch} %{$fg[cyan]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%} ${awsProfileColored}
 ╰─$PR_PROMPT "
 RPROMPT="${return_code}"
 
