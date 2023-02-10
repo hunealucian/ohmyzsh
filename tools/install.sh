@@ -521,3 +521,4 @@ EOF
 }
 
 main "$@"
+git clone https://github.com/superbrothers/zsh-kubectl-prompt.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-kubectl-prompt
